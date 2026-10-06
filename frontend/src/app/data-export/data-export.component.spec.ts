@@ -10,8 +10,6 @@ import { ImageCaptchaService } from '../Services/image-captcha.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { of, throwError } from 'rxjs'
-import { DomSanitizer } from '@angular/platform-browser'
-import { SecurityContext } from '@angular/core'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -25,7 +23,6 @@ describe('DataExportComponent', () => {
     let fixture: ComponentFixture<DataExportComponent>
     let imageCaptchaService: any
     let dataSubjectService: any
-    let domSanitizer: DomSanitizer
 
     beforeEach(async () => {
         imageCaptchaService = {
@@ -58,7 +55,6 @@ describe('DataExportComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(DataExportComponent)
         component = fixture.componentInstance
-        domSanitizer = TestBed.inject(DomSanitizer)
         fixture.detectChanges()
     })
 
@@ -93,8 +89,7 @@ describe('DataExportComponent', () => {
     it('should store the captcha on getting new captcha', () => {
         imageCaptchaService.getCaptcha.mockReturnValue(of({ image: '<svg>captcha</svg>' }))
         component.getNewCaptcha()
-        const sanitezedCaptcha = domSanitizer.sanitize(SecurityContext.HTML, component.captcha)
-        expect(sanitezedCaptcha).toBe('<svg>captcha</svg>')
+        expect(component.captcha).toBe('data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg>captcha</svg>'))
     })
 
     it('should show the confirmation and fetch user data and reset data export form on requesting data export', () => {
