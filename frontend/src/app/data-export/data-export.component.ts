@@ -7,7 +7,6 @@ import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angula
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
 import { DataSubjectService } from '../Services/data-subject.service'
-import { DomSanitizer } from '@angular/platform-browser'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatLabel, MatFormFieldModule, MatHint, MatError } from '@angular/material/form-field'
@@ -26,7 +25,6 @@ import { MatIconModule } from '@angular/material/icon'
   imports: [MatCardModule, TranslateModule, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class DataExportComponent implements OnInit {
-  sanitizer = inject(DomSanitizer)
   private readonly imageCaptchaService = inject(ImageCaptchaService)
   private readonly dataSubjectService = inject(DataSubjectService)
 
@@ -55,7 +53,7 @@ export class DataExportComponent implements OnInit {
 
   getNewCaptcha () {
     this.imageCaptchaService.getCaptcha().subscribe((data: any) => {
-      this.captcha = this.sanitizer.bypassSecurityTrustHtml(data.image)
+      this.captcha = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(data.image)
     })
   }
 
