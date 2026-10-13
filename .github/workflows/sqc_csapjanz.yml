@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   sonar:
-    uses: sonarsource-customersuccess-apj-anz/sonar-workflows/.github/workflows/sonar-scan.yml@main
+    uses: sonarsource-customersuccess-apj-anz/sonar-workflows/.github/workflows/sonarqube-cloud-scan.yml@main
     with:
       project_key: sonarsource-customersuccess-apj-anz_juice-shop
     secrets:
