@@ -12,3 +12,4 @@ jobs:
       project_key: sonarsource-customersuccess-apj-anz_juice-shop
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
