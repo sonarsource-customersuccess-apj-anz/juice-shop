@@ -170,7 +170,7 @@ async function createChallenges () {
       hints.map((hint, index) => ({
         ChallengeId: datacache.challenges[challengeKey].id,
         text: hint.replace(/OWASP Juice Shop/, `${config.get<string>('application.name')}`)
-          .replace('http://htmledit.squarefree.com', config.get<string>('challenges.overwriteUrlForCsrfChallenge')),
+          .replace('http://htmledit.squarefree.com', config.get<string>('challenges.overwriteUrlForCsrfChallenge')), // NOSONAR only a search pattern for hint text, no connection is made
         order: index + 1,
         unlocked: false
       }))
